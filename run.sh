@@ -1,8 +1,5 @@
 #!/bin/bash
 
-shell_path=`pwd -P`
-printf $shell_path
-
 printf '\n==> build\n'
 build="docker build -t pasudo123/springboot-docker-basis ."
 $build

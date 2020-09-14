@@ -4,7 +4,6 @@ docker_ps_command="docker ps -a"
 $docker_ps_command
 image_name="pasudo123/springboot-docker-basis"
 
-## 특정 이미지 CONTAINER_ID 획득
 echo "(1) 컨테이너 ID 획득"
 first_value='$1'
 container_id=$($docker_ps_command | grep $image_name | awk "{print $first_value}")
