@@ -1,21 +1,33 @@
 #!/bin/sh
 
 docker_ps_command="docker ps -a"
-$docker_ps_command
-image_name="pasudo123/springboot-docker-basis"
-
-echo "(1) 컨테이너 ID 획득"
 first_value='$1'
+
+echo "(1-1) 컨테이너 ID 획득 : status=exited"
+container_id=$($docker_ps_command | awk "{print ${first_value}}" | tail -n +2)
+echo $container_id
+
+echo ""
+if [[ -n ${container_id-x} ]]; then
+  echo "(1-2) exited 컨테이너 삭제"
+  rm="docker rm -f"
+  $rm $container_id
+else
+  echo "(1-2) exited 컨테이너 미존재"
+fi
+
+image_name="pasudo123/springboot-docker-basis"
+echo "(1-3) 컨테이너 ID 획득 : ${image_name}"
 container_id=$($docker_ps_command | grep $image_name | awk "{print $first_value}")
 echo $container_id
 
 echo ""
 if [[ -n ${container_id-x} ]]; then
-  echo "(2) 해당 컨테이너 삭제"
+  echo "(1-4) 해당 컨테이너 삭제"
   rm="docker rm -f"
   $rm $container_id
 else
-  echo "(2) 해당 컨테이너 미존재"
+  echo "(1-4) 해당 컨테이너 미존재"
 fi
 
 echo ""
