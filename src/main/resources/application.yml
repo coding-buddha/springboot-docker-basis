@@ -1,1 +1,7 @@
 
+logging:
+  level:
+    edu.pasudo123.study.docker.*: INFO
+  file:
+    name: ./log/app.log
+

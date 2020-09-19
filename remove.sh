@@ -4,7 +4,7 @@ docker_ps_command="docker ps -a"
 first_value='$1'
 
 echo "(1-1) 컨테이너 ID 획득 : status=exited"
-container_id=$($docker_ps_command | awk "{print ${first_value}}" | tail -n +2)
+container_id=$($docker_ps_command -f status=exited | awk "{print ${first_value}}" | tail -n +2)
 echo $container_id
 
 echo ""

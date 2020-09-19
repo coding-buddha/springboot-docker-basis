@@ -7,11 +7,15 @@
 # COPY      : jar 파일을 app.jar 파일로 복사
 
 FROM openjdk:8-jdk-alpine
-LABEL maintainer="pasudo123"
+LABEL maintainer="user"
 RUN apk add --update vim
-RUN echo "alias ll='ls -alF'" >> ~/.bashrc
-RUN /bin/sh -c ". ~/.bashrc"
+
+ARG INIT_SH=installation/init.sh
+COPY ${INIT_SH} init.sh
+RUN sh init.sh
 
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
+
+
 ENTRYPOINT ["java","-jar","/app.jar"]
