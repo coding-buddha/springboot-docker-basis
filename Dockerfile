@@ -10,12 +10,10 @@ FROM openjdk:8-jdk-alpine
 LABEL maintainer="user"
 RUN apk add --update vim
 
-ARG INIT_SH=installation/init.sh
-COPY ${INIT_SH} init.sh
-RUN sh init.sh
-
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 
+# 한국시간대 설정
+ENV TZ Asia/Seoul
 
 ENTRYPOINT ["java","-jar","/app.jar"]
